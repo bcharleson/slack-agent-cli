@@ -1,3 +1,4 @@
+click>=8.1
 mcp>=1.23.0
 slack-sdk>=3.39.0
 python-dotenv>=1.2.0

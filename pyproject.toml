@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "slack-mcp-server"
-version = "0.1.0"
-description = "MCP server for Slack API integration"
+version = "0.2.0"
+description = "CLI and MCP server for Slack API integration"
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
@@ -13,12 +13,14 @@ authors = [
     {name = "Brandon Charleson"}
 ]
 dependencies = [
+    "click>=8.1",
     "mcp>=1.23.0",
     "slack-sdk>=3.39.0",
     "python-dotenv>=1.2.0",
 ]
 
 [project.scripts]
+slack = "slack_mcp_server.cli.main:main"
 slack-mcp-server = "slack_mcp_server.server:main"
 
 [tool.setuptools.packages.find]

@@ -1,6 +1,6 @@
 # Slack MCP Server
 
-A comprehensive Model Context Protocol (MCP) server for Slack API integration. This server enables AI assistants like Claude to interact with your Slack workspace, including managing channels, sending messages, searching content, and more.
+A CLI and Model Context Protocol (MCP) server for Slack API integration. Use `slack` from the terminal for scripting and agent workflows, or `slack mcp` for AI assistant integration via stdio MCP.
 
 ## Features
 
@@ -146,13 +146,66 @@ cp .env.example .env
 
 ## Usage
 
-### Running the Server
+### CLI
+
+After installation, the `slack` command exposes grouped subcommands that mirror the MCP tools:
+
+```bash
+# Channels
+slack channels list
+slack channels info C01234567
+slack channels history C01234567 --limit 10
+
+# Messages
+slack messages post C01234567 "Hello from the CLI"
+slack messages reply C01234567 1710000000.000100 "Thread reply"
+
+# DMs
+slack dms send U01234567 "Quick note from CLI"
+slack dms list
+
+# Search (requires SLACK_USER_TOKEN)
+slack search messages "project update in:#general"
+
+# Users / workspace
+slack users list
+slack users lookup brandon@example.com
+slack workspace team
+
+# Output formatting
+slack --pretty channels list
+slack --output json --quiet channels list
+```
+
+Global options:
+
+- `--bot-token` / `SLACK_BOT_TOKEN`
+- `--user-token` / `SLACK_USER_TOKEN`
+- `--output json|pretty` (default: `json`)
+- `--pretty` shorthand
+- `--quiet` for exit-code-only automation
+
+### MCP server
+
+Start the stdio MCP server:
+
+```bash
+slack mcp
+```
+
+Legacy entrypoint (MCP only):
+
+```bash
+slack-mcp-server
+```
+
+### Running the Server (development)
 
 #### As a Python Module
 
 ```bash
 source venv/bin/activate
-python -m slack_mcp_server
+python -m slack_mcp_server.cli mcp
 ```
 
 #### Using the Entry Point
@@ -189,15 +242,31 @@ Replace `/path/to/slack-mcp-server` with the actual path to your installation.
 
 ### Cursor IDE Configuration
 
-Add to your Cursor MCP settings:
+Add to your Cursor MCP settings (`~/.cursor/mcp.json`):
 
 ```json
 {
   "mcpServers": {
-    "slack": {
-      "command": "/path/to/slack-mcp-server/venv/bin/python",
-      "args": ["-m", "slack_mcp_server"],
-      "cwd": "/path/to/slack-mcp-server",
+    "slack-mcp": {
+      "command": "/path/to/slack-mcp-server/venv/bin/slack",
+      "args": ["mcp"],
+      "env": {
+        "SLACK_BOT_TOKEN": "xoxb-your-bot-token",
+        "SLACK_USER_TOKEN": "xoxp-your-user-token"
+      }
+    }
+  }
+}
+```
+
+Or with a global install:
+
+```json
+{
+  "mcpServers": {
+    "slack-mcp": {
+      "command": "slack",
+      "args": ["mcp"],
       "env": {
         "SLACK_BOT_TOKEN": "xoxb-your-bot-token",
         "SLACK_USER_TOKEN": "xoxp-your-user-token"
@@ -312,18 +381,19 @@ Your Slack app is missing required permissions. Check the OAuth scopes section a
 slack-mcp-server/
 ├── src/
 │   └── slack_mcp_server/
-│       ├── __init__.py
-│       ├── __main__.py
-│       ├── server.py              # FastMCP server entry point
-│       ├── tools/
-│       │   ├── __init__.py
-│       │   ├── channels.py        # Channel management tools
-│       │   ├── messages.py        # Messaging and DM tools
-│       │   ├── search.py          # Search functionality
-│       │   └── users.py           # User management tools
-│       └── utils/
-│           ├── __init__.py
-│           └── slack_client.py    # Slack API wrapper
+│       ├── cli/
+│       │   └── main.py            # Click CLI + `slack mcp`
+│       ├── core/
+│       │   └── output.py          # JSON/pretty output helpers
+│       ├── operations/            # Shared handlers for CLI + MCP
+│       │   ├── channels.py
+│       │   ├── messages.py
+│       │   ├── search.py
+│       │   └── users.py
+│       ├── tools/                   # MCP tool registration
+│       ├── utils/
+│       │   └── slack_client.py
+│       └── server.py              # FastMCP stdio server
 ├── pyproject.toml
 ├── requirements.txt
 ├── .env.example

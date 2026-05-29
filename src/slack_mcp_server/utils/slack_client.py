@@ -36,15 +36,15 @@ class SlackClientManager:
 
     def __init__(self) -> None:
         """Initialize Slack clients with tokens from environment."""
-        if self._bot_client is None:
-            bot_token = os.getenv("SLACK_BOT_TOKEN")
-            if bot_token:
-                self._bot_client = WebClient(token=bot_token)
+        self.refresh_clients()
 
-        if self._user_client is None:
-            user_token = os.getenv("SLACK_USER_TOKEN")
-            if user_token:
-                self._user_client = WebClient(token=user_token)
+    def refresh_clients(self) -> None:
+        """Rebuild clients from current environment variables."""
+        bot_token = os.getenv("SLACK_BOT_TOKEN")
+        self._bot_client = WebClient(token=bot_token) if bot_token else None
+
+        user_token = os.getenv("SLACK_USER_TOKEN")
+        self._user_client = WebClient(token=user_token) if user_token else None
 
     @property
     def bot_client(self) -> WebClient:
@@ -78,6 +78,13 @@ class SlackClientManager:
 def get_slack_client() -> SlackClientManager:
     """Get the Slack client manager singleton."""
     return SlackClientManager()
+
+
+def reset_slack_client() -> None:
+    """Reset the Slack client singleton (used when CLI overrides tokens)."""
+    SlackClientManager._instance = None
+    SlackClientManager._bot_client = None
+    SlackClientManager._user_client = None
 
 
 def handle_slack_error(error: SlackApiError) -> SlackResponse:
