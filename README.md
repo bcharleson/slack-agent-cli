@@ -47,14 +47,31 @@ A CLI and Model Context Protocol (MCP) server for Slack API integration. Use `sl
 
 ## Installation
 
-### 1. Clone the Repository
+### npm (recommended)
+
+Requires **Node.js 18+** and **Python 3.10+**.
+
+```bash
+npm install -g slack-agent-cli
+slack --version
+```
+
+MCP via global install:
+
+```bash
+slack mcp
+```
+
+### From source (Python)
+
+#### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/bcharleson/slack-agent-cli.git
 cd slack-agent-cli
 ```
 
-### 2. Create Virtual Environment
+#### 2. Create Virtual Environment
 
 ```bash
 python3.12 -m venv venv
@@ -234,8 +251,8 @@ Add to your Cursor MCP settings (`~/.cursor/mcp.json`):
 ```json
 {
   "mcpServers": {
-    "slack-mcp": {
-      "command": "/path/to/slack-agent-cli/venv/bin/slack",
+    "slack-agent-cli": {
+      "command": "slack",
       "args": ["mcp"],
       "env": {
         "SLACK_BOT_TOKEN": "xoxb-your-bot-token",
@@ -251,7 +268,7 @@ Or with a global install:
 ```json
 {
   "mcpServers": {
-    "slack-mcp": {
+    "slack-agent-cli": {
       "command": "slack",
       "args": ["mcp"],
       "env": {

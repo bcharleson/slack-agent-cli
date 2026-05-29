@@ -28,6 +28,11 @@ ENV/
 env/
 .venv/
 
+# npm / postinstall Python bundle
+node_modules/
+python_modules/
+package-lock.json
+
 # Environment variables
 .env
 .env.*

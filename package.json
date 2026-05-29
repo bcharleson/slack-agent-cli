@@ -1,0 +1,51 @@
+{
+  "name": "slack-agent-cli",
+  "version": "0.3.0",
+  "description": "CLI and MCP server for Slack — channels, messages, DMs, search, and users",
+  "type": "module",
+  "bin": {
+    "slack": "./bin/slack.js",
+    "slack-agent-cli": "./bin/slack.js"
+  },
+  "files": [
+    "bin",
+    "npm",
+    "scripts",
+    "src",
+    "pyproject.toml",
+    "README.md",
+    "LICENSE",
+    ".env.example",
+    "SECURITY.md"
+  ],
+  "scripts": {
+    "postinstall": "node scripts/postinstall.js",
+    "prepublishOnly": "node scripts/check-version.js"
+  },
+  "keywords": [
+    "slack",
+    "slack-api",
+    "mcp",
+    "model-context-protocol",
+    "cli",
+    "ai-agent",
+    "chatops",
+    "workspace"
+  ],
+  "author": "Brandon Charleson",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bcharleson/slack-agent-cli.git"
+  },
+  "homepage": "https://github.com/bcharleson/slack-agent-cli#readme",
+  "bugs": {
+    "url": "https://github.com/bcharleson/slack-agent-cli/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
