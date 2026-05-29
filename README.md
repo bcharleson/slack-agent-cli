@@ -2,6 +2,8 @@
 
 A CLI and Model Context Protocol (MCP) server for Slack API integration. Use `slack` from the terminal for scripting and agent workflows, or `slack mcp` for AI assistant integration via stdio MCP.
 
+**AI agents:** See [AGENTS.md](./AGENTS.md) for install, auth, all commands, MCP tool names, and workflow examples.
+
 ## Features
 
 ### Channel Management
@@ -399,6 +401,8 @@ slack-agent-cli/
 │       │   └── slack_client.py
 │       └── server.py              # FastMCP stdio server
 ├── pyproject.toml
+├── package.json
+├── AGENTS.md                      # AI agent guide (commands, MCP, workflows)
 ├── requirements.txt
 ├── .env.example
 └── README.md

@@ -14,6 +14,7 @@
     "src",
     "pyproject.toml",
     "README.md",
+    "AGENTS.md",
     "LICENSE",
     ".env.example",
     "SECURITY.md"
