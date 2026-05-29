@@ -4,8 +4,8 @@
   "description": "CLI and MCP server for Slack — channels, messages, DMs, search, and users",
   "type": "module",
   "bin": {
-    "slack": "./bin/slack.js",
-    "slack-agent-cli": "./bin/slack.js"
+    "slack": "bin/slack.js",
+    "slack-agent-cli": "bin/slack.js"
   },
   "files": [
     "bin",
