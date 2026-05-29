@@ -1,4 +1,4 @@
-"""Allow running the CLI as: python -m slack_mcp_server.cli"""
+"""Allow running the CLI as: python -m slack_agent_cli.cli"""
 
 from .main import main
 

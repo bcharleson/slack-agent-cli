@@ -1,4 +1,4 @@
-"""Slack MCP Server - Main entry point."""
+"""Slack Agent CLI — MCP server entry point."""
 
 import os
 import sys
@@ -16,8 +16,8 @@ load_dotenv()
 
 # Create FastMCP server instance
 mcp = FastMCP(
-    name="Slack MCP Server",
-    instructions="MCP server for comprehensive Slack API integration. "
+    name="Slack Agent CLI",
+    instructions="CLI and MCP server for Slack API integration. "
     "Enables AI assistants to interact with Slack workspaces including "
     "channels, messages, DMs, search, and user management.",
 )

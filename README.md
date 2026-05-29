@@ -1,4 +1,4 @@
-# Slack MCP Server
+# Slack Agent CLI
 
 A CLI and Model Context Protocol (MCP) server for Slack API integration. Use `slack` from the terminal for scripting and agent workflows, or `slack mcp` for AI assistant integration via stdio MCP.
 
@@ -50,8 +50,8 @@ A CLI and Model Context Protocol (MCP) server for Slack API integration. Use `sl
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/bcharleson/slack-mcp-server.git
-cd slack-mcp-server
+git clone https://github.com/bcharleson/slack-agent-cli.git
+cd slack-agent-cli
 ```
 
 ### 2. Create Virtual Environment
@@ -191,28 +191,15 @@ Start the stdio MCP server:
 
 ```bash
 slack mcp
-```
-
-Legacy entrypoint (MCP only):
-
-```bash
-slack-mcp-server
+# or
+slack-agent-cli mcp
 ```
 
 ### Running the Server (development)
 
-#### As a Python Module
-
 ```bash
 source venv/bin/activate
-python -m slack_mcp_server.cli mcp
-```
-
-#### Using the Entry Point
-
-```bash
-source venv/bin/activate
-slack-mcp-server
+python -m slack_agent_cli.cli mcp
 ```
 
 ### Claude Desktop Configuration
@@ -226,9 +213,9 @@ Add to your Claude Desktop configuration file:
 {
   "mcpServers": {
     "slack": {
-      "command": "/path/to/slack-mcp-server/venv/bin/python",
-      "args": ["-m", "slack_mcp_server"],
-      "cwd": "/path/to/slack-mcp-server",
+      "command": "/path/to/slack-agent-cli/venv/bin/python",
+      "args": ["-m", "slack_agent_cli"],
+      "cwd": "/path/to/slack-agent-cli",
       "env": {
         "SLACK_BOT_TOKEN": "xoxb-your-bot-token",
         "SLACK_USER_TOKEN": "xoxp-your-user-token"
@@ -238,7 +225,7 @@ Add to your Claude Desktop configuration file:
 }
 ```
 
-Replace `/path/to/slack-mcp-server` with the actual path to your installation.
+Replace `/path/to/slack-agent-cli` with the actual path to your installation.
 
 ### Cursor IDE Configuration
 
@@ -248,7 +235,7 @@ Add to your Cursor MCP settings (`~/.cursor/mcp.json`):
 {
   "mcpServers": {
     "slack-mcp": {
-      "command": "/path/to/slack-mcp-server/venv/bin/slack",
+      "command": "/path/to/slack-agent-cli/venv/bin/slack",
       "args": ["mcp"],
       "env": {
         "SLACK_BOT_TOKEN": "xoxb-your-bot-token",
@@ -338,7 +325,7 @@ Or with a global install:
 ### Using MCP Inspector
 
 ```bash
-npx @modelcontextprotocol/inspector python -m slack_mcp_server
+npx @modelcontextprotocol/inspector python -m slack_agent_cli
 ```
 
 This opens a web interface to test all available tools interactively.
@@ -378,9 +365,9 @@ Your Slack app is missing required permissions. Check the OAuth scopes section a
 ### Project Structure
 
 ```
-slack-mcp-server/
+slack-agent-cli/
 ├── src/
-│   └── slack_mcp_server/
+│   └── slack_agent_cli/
 │       ├── cli/
 │       │   └── main.py            # Click CLI + `slack mcp`
 │       ├── core/
@@ -402,7 +389,7 @@ slack-mcp-server/
 
 ### Adding New Tools
 
-1. Create or edit a file in `src/slack_mcp_server/tools/`
+1. Create or edit a file in `src/slack_agent_cli/tools/`
 2. Define tools using the `@mcp.tool()` decorator
 3. Register the tools in the server by calling the registration function
 
