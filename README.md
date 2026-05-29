@@ -50,7 +50,7 @@ A comprehensive Model Context Protocol (MCP) server for Slack API integration. T
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/bcharleson/slack-mcp-server.git
 cd slack-mcp-server
 ```
 
@@ -140,7 +140,7 @@ SLACK_USER_TOKEN=xoxp-your-user-token-here
 You can copy the example file:
 
 ```bash
-cp env.example .env
+cp .env.example .env
 # Then edit .env with your tokens
 ```
 
@@ -326,7 +326,7 @@ slack-mcp-server/
 │           └── slack_client.py    # Slack API wrapper
 ├── pyproject.toml
 ├── requirements.txt
-├── env.example
+├── .env.example
 └── README.md
 ```
 
